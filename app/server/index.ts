@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
-import { publicProcedure, router } from "./trpc";
+import * as trpc from "@trpc/server";
+import { procedure, router } from "./trpc";
 
 const dataArray = [
   {
@@ -65,13 +65,9 @@ const dataArray = [
 ];
 
 export const appRouter = router({
-  getUser: publicProcedure.query(async () => {
+  getUser: procedure.query(async () => {
     const data = dataArray.find((data) => data.certid == 432130);
-    if (data) {
-      return NextResponse.json(data);
-    } else {
-      return NextResponse.json("Not found");
-    }
+    return data;
   }),
 });
 export type AppRouter = typeof appRouter;
