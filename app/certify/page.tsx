@@ -67,7 +67,7 @@ const Validation = () => {
             <div className="mt-8">
               <hr />
               <span className="flex justify-center my-4">
-                Don't have one?{" "}
+                Dont have one?{" "}
                 <Link
                   className="ml-2 cursor-pointer text-violet-400"
                   href={`${process.env.NEXT_PUBLIC_CERTIFY_URL}/`}
