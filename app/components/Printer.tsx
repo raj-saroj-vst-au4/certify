@@ -51,7 +51,7 @@ const Printer = ({ printing, setPrinting, certificateData }: PrinterProps) => {
         <div className="top"></div>
         <div className="middle"></div>
         <div className="trace"></div>
-        <div className="paper text-sky-400/100">
+        <div className="paper text-sky-400/100 z-20">
           {printData && (
             <PrintTemplate
               certid={printData.certid}

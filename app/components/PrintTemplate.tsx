@@ -25,6 +25,9 @@ const PrintTemplate = ({ certid, name, link }: PrintTemplateProps) => {
       <div className="text-[0.75rem] italic absolute top-[2.3rem] right-[1.1rem]">
         {name}
       </div>
+      <div className="text-[0.14rem] absolute bottom-[0.5rem] left-[1.9rem] text-white">
+        Certificate ID : {certid}
+      </div>
       <div className="text-[0.14rem] absolute bottom-[0.5rem] right-[0.4rem] text-white">
         Date of Issue : 10th of November 2023
       </div>
