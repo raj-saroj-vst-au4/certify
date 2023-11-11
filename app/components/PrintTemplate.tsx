@@ -18,8 +18,8 @@ const PrintTemplate = ({ certid, name, link }: PrintTemplateProps) => {
             title="verify"
           />
         </div>
-        <div className="text-[0.12rem] p-[0.1rem]">
-          {process.env.NEXT_PUBLIC_CERTIFY_URL}
+        <div className="text-[0.12rem] p-[0.1rem] ml-[0.15rem] text-black">
+          100xdevs.com
         </div>
       </div>
       <div className="text-[0.75rem] italic absolute top-[2.3rem] right-[1.1rem]">

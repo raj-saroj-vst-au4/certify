@@ -3,6 +3,7 @@ import { useState } from "react";
 import Printer from "./components/Printer";
 import InputModal from "./components/InputModal";
 import { serverClient } from "./_app/serverClient";
+import { useRouter } from "next/navigation";
 
 interface Certificate {
   certid: number;
@@ -18,6 +19,8 @@ export default function Home() {
   const [inputCertid, setInputCertid] = useState<number>();
   const [inputEmail, setInputEmail] = useState<string>();
   const [phoneDigits, setPhoneDigits] = useState<number>();
+
+  const router = useRouter();
 
   const [certificateData, setCertificateData] = useState<Certificate>({
     certid: 432121,
@@ -55,6 +58,10 @@ export default function Home() {
     }
   };
 
+  const navToVal = () => {
+    router.push("/certify");
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-20">
       <div className="z-1 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
@@ -77,13 +84,27 @@ export default function Home() {
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 border-neutral-700 bg-neutral-800/30 z-1"
         >
           <h2 className={`mb-3 text-2xl font-semibold`}>
-            Verify{" "}
+            Produce{" "}
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
               -&gt;
             </span>
           </h2>
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Generate/Verify Certificate !
+            Generate Certificate !
+          </p>
+        </button>
+        <button
+          onClick={() => navToVal()}
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 border-neutral-700 bg-neutral-800/30 z-1"
+        >
+          <h2 className={`mb-3 text-2xl font-semibold`}>
+            Validate{" "}
+            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              -&gt;
+            </span>
+          </h2>
+          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+            Verify Certificate !
           </p>
         </button>
       </div>
