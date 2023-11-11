@@ -22,7 +22,7 @@ const PrintTemplate = ({ certid, name, link }: PrintTemplateProps) => {
           100xdevs.com
         </div>
       </div>
-      <div className="text-[0.75rem] italic absolute top-[2.3rem] right-[1.1rem]">
+      <div className="text-[0.75rem] italic absolute top-[2.4rem] right-[1.1rem]">
         {name}
       </div>
       <div className="text-[0.14rem] absolute bottom-[0.5rem] left-[1.9rem] text-white">
