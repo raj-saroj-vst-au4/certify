@@ -1,10 +1,25 @@
 import React, { useState } from "react";
+import InputAlert from "./InputAlert";
 
 interface ModalProps {
   setShowModal: (state: boolean) => void;
+  setCertid: (state: number) => void;
+  handleGetCert: () => void;
+  setInputEmail: (state: string) => void;
+  setPhoneDigits: (state: number) => void;
+  handleGenerateCert: () => void;
+  validInput: boolean;
 }
 
-const InputModal = ({ setShowModal }: ModalProps) => {
+const InputModal = ({
+  setShowModal,
+  setCertid,
+  handleGetCert,
+  setInputEmail,
+  setPhoneDigits,
+  handleGenerateCert,
+  validInput,
+}: ModalProps) => {
   const [isGenerated, setIsGenerated] = useState<boolean>(true);
 
   return (
@@ -34,14 +49,15 @@ const InputModal = ({ setShowModal }: ModalProps) => {
             <span className="sr-only">Close modal</span>
           </button>
           <div className="px-6 py-6 lg:px-8">
-            <form className="space-y-6">
+            <section className="space-y-6">
               {isGenerated ? (
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Your Certificate ID
                   </label>
                   <input
-                    type="text"
+                    type="number"
+                    onChange={(e) => setCertid(parseInt(e.target.value))}
                     placeholder="6-Digit code"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     required
@@ -56,6 +72,7 @@ const InputModal = ({ setShowModal }: ModalProps) => {
                     <input
                       type="email"
                       id="email"
+                      onChange={(e) => setInputEmail(e.target.value)}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                       placeholder="name@company.com"
                       required
@@ -68,6 +85,7 @@ const InputModal = ({ setShowModal }: ModalProps) => {
                     <input
                       type="number"
                       id="phone"
+                      onChange={(e) => setPhoneDigits(parseInt(e.target.value))}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                       placeholder="4321"
                       required
@@ -76,12 +94,20 @@ const InputModal = ({ setShowModal }: ModalProps) => {
                 </>
               )}
 
+              {!validInput && <InputAlert />}
+
               {isGenerated ? (
-                <button className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                  Validate Certificate
+                <button
+                  className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  onClick={() => handleGetCert()}
+                >
+                  Print Certificate
                 </button>
               ) : (
-                <button className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <button
+                  className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  onClick={() => handleGenerateCert()}
+                >
                   Generate Certificate
                 </button>
               )}
@@ -107,7 +133,7 @@ const InputModal = ({ setShowModal }: ModalProps) => {
                   </a>
                 </div>
               )}
-            </form>
+            </section>
           </div>
         </div>
       </div>

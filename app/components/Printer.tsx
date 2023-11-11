@@ -3,32 +3,42 @@ import React, { useEffect, useState } from "react";
 import "./Printer.css";
 import PrintTemplate from "./PrintTemplate";
 
+interface Certificate {
+  certid: number;
+  name: string;
+  phone: string;
+  email: string;
+}
+
 interface PrinterProps {
   printing: boolean;
   setPrinting: (state: boolean) => void;
+  certificateData: Certificate;
 }
 
 interface PrintDataProps {
+  certid: number;
   name: string;
   link: string;
 }
 
-const Printer = ({ printing, setPrinting }: PrinterProps) => {
+const Printer = ({ printing, setPrinting, certificateData }: PrinterProps) => {
   const [printData, setPrintData] = useState<PrintDataProps>();
   const startPrinting = () => {
     setPrinting(true);
     setTimeout(() => {
       setPrintData({
-        name: "Ra Saroj",
-        link: "http://localhost:3000/certify/213217",
+        certid: certificateData.certid,
+        name: certificateData.name,
+        link: `${process.env.NEXT_PUBLIC_CERTIFY_URL}/certify/${certificateData.certid}`,
       });
     }, 1000);
   };
   useEffect(() => {
-    setTimeout(() => {
+    if (certificateData.name != "Invalid") {
       startPrinting();
-    }, 2000);
-  }, []);
+    }
+  }, [certificateData]);
 
   return (
     <div id="printer-animation" className="printer-animation">
@@ -43,7 +53,11 @@ const Printer = ({ printing, setPrinting }: PrinterProps) => {
         <div className="trace"></div>
         <div className="paper text-sky-400/100">
           {printData && (
-            <PrintTemplate name={printData.name} link={printData.link} />
+            <PrintTemplate
+              certid={printData.certid}
+              name={printData.name}
+              link={printData.link}
+            />
           )}
         </div>
       </div>

@@ -1,18 +1,19 @@
 import React from "react";
 
 interface PrintTemplateProps {
+  certid: number;
   name: string;
   link: string;
 }
 
-const PrintTemplate = ({ name, link }: PrintTemplateProps) => {
+const PrintTemplate = ({ certid, name, link }: PrintTemplateProps) => {
   return (
     <div className="bg-printemp h-full bg-cover">
       <div>
         <div className="pt-[0.2rem] px-[0.2rem]">
           <img
             className="h-[1rem] w-[1rem]"
-            src={`https://api.qrserver.com/v1/create-qr-code/?data=${process.env.NEXT_PUBLIC_CERTIFY_URL}/certify/3212&size=100x100`}
+            src={`https://api.qrserver.com/v1/create-qr-code/?data=${link}&size=100x100`}
             alt="qr"
             title="verify"
           />
@@ -22,7 +23,13 @@ const PrintTemplate = ({ name, link }: PrintTemplateProps) => {
         </div>
       </div>
       <div className="text-[0.75rem] italic absolute top-[2.3rem] right-[1.1rem]">
-        Raj Saroj
+        {name}
+      </div>
+      <div className="text-[0.14rem] absolute bottom-[0.5rem] right-[0.4rem] text-white">
+        Date of Issue : 10th of November 2023
+      </div>
+      <div className="text-[0.14rem] italic absolute bottom-[0rem] right-[0.4rem] text-black">
+        {`${process.env.NEXT_PUBLIC_CERTIFY_URL}/certify/${certid}`}
       </div>
     </div>
   );

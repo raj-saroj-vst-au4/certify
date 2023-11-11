@@ -1,4 +1,4 @@
-import * as trpc from "@trpc/server";
+import { z } from "zod";
 import { procedure, router } from "./trpc";
 
 const dataArray = [
@@ -65,9 +65,25 @@ const dataArray = [
 ];
 
 export const appRouter = router({
-  getUser: procedure.query(async () => {
-    const data = dataArray.find((data) => data.certid == 432130);
-    return data;
+  getCert: procedure.input(z.object({ certid: z.number() })).query((req) => {
+    return dataArray.find((data) => data.certid == req.input.certid);
   }),
+  generateCert: procedure
+    .input(z.object({ email: z.string(), digits: z.number() }))
+    .query((req) => {
+      if (req.input.email && req.input.digits) {
+        const available = dataArray.find(
+          (data) =>
+            data.email == req.input.email &&
+            parseInt(data.phone.slice(-4)) == req.input.digits
+        );
+        if (available) {
+          return available;
+        } else {
+          return null;
+        }
+      }
+    }),
 });
+
 export type AppRouter = typeof appRouter;

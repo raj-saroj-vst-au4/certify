@@ -2,10 +2,58 @@
 import { useState } from "react";
 import Printer from "./components/Printer";
 import InputModal from "./components/InputModal";
+import { serverClient } from "./_app/serverClient";
+
+interface Certificate {
+  certid: number;
+  name: string;
+  phone: string;
+  email: string;
+}
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
+  const [validInput, setValidInput] = useState<boolean>(true);
   const [printing, setPrinting] = useState<boolean>(false);
+  const [inputCertid, setInputCertid] = useState<number>();
+  const [inputEmail, setInputEmail] = useState<string>();
+  const [phoneDigits, setPhoneDigits] = useState<number>();
+
+  const [certificateData, setCertificateData] = useState<Certificate>({
+    certid: 432121,
+    name: "Invalid",
+    phone: "Invalid",
+    email: "invalid",
+  });
+
+  const handleGetCert = async () => {
+    if (inputCertid) {
+      const data = await serverClient.getCert({ certid: inputCertid });
+      if (data) {
+        setValidInput(true);
+        setShowModal(false);
+        return setCertificateData(data);
+      } else {
+        setValidInput(false);
+      }
+    }
+  };
+
+  const handleGenerateCert = async () => {
+    if (inputEmail && phoneDigits) {
+      const data = await serverClient.generateCert({
+        email: inputEmail,
+        digits: phoneDigits,
+      });
+      if (data) {
+        setValidInput(true);
+        setShowModal(false);
+        return setCertificateData(data);
+      } else {
+        setValidInput(false);
+      }
+    }
+  };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-20">
@@ -16,7 +64,11 @@ export default function Home() {
       </div>
 
       <div className="flex place-items-center before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[140px] after:w-[120px] after:translate-x-2/3 after:bg-gradient-conic after:from-sky-400 after:via-blue-400 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Printer printing={printing} setPrinting={setPrinting} />
+        <Printer
+          printing={printing}
+          setPrinting={setPrinting}
+          certificateData={certificateData}
+        />
       </div>
 
       <div className="flex justify-around text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left lg:mt-20">
@@ -35,7 +87,17 @@ export default function Home() {
           </p>
         </button>
       </div>
-      {showModal && <InputModal setShowModal={setShowModal} />}
+      {showModal && (
+        <InputModal
+          setShowModal={setShowModal}
+          setCertid={setInputCertid}
+          handleGetCert={handleGetCert}
+          setInputEmail={setInputEmail}
+          setPhoneDigits={setPhoneDigits}
+          handleGenerateCert={handleGenerateCert}
+          validInput={validInput}
+        />
+      )}
     </main>
   );
 }
