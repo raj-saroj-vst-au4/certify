@@ -1,0 +1,212 @@
+#printbutton {
+  display: none;
+}
+
+.printer-animation,
+.printer {
+  position: relative;
+  top: -35px;
+}
+
+.top {
+  position: absolute;
+  background-color: #282c30;
+  width: 160px;
+  height: 70px;
+  border-radius: 20px 20px 0 0;
+  border: 5px solid black;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  box-shadow: inset 20px 0 #1e2124;
+  z-index: 2;
+}
+
+.middle {
+  position: absolute;
+  background-color: #4a4f55;
+  border: 5px solid black;
+  width: 250px;
+  height: 100px;
+  border-radius: 20px;
+  top: 30px;
+  left: -130px;
+  box-shadow: inset 20px 0 #373b3d;
+  z-index: 5;
+}
+
+.trace,
+.trace:before {
+  position: absolute;
+  background-color: #282c30;
+}
+
+.trace {
+  border: 5px solid black;
+  width: 160px;
+  height: 80px;
+  border-radius: 10px;
+  left: -85px;
+  top: 110px;
+  box-shadow: inset 0 35px #1e2124;
+  z-index: 2;
+}
+
+.trace:before {
+  content: "";
+  width: 60px;
+  height: 20px;
+  border-radius: 0 0 10px 10px;
+  top: 80px;
+  left: 45px;
+  border-bottom: 5px solid black;
+  border-right: 5px solid black;
+  border-left: 5px solid black;
+}
+
+.trace:after {
+  position: absolute;
+  content: "";
+  width: 5px;
+  height: 50px;
+  background-color: black;
+  left: 20px;
+  top: 15px;
+  box-shadow: 60px 0 black, 115px 0 black;
+}
+
+.paper {
+  position: absolute;
+  background-color: white;
+  width: 120px;
+  height: 80px;
+  top: -50px;
+  left: -60px;
+  z-index: 3;
+}
+
+.printerbutton {
+  position: absolute;
+  z-index: 30;
+  border-radius: 50%;
+  border: 5px solid black;
+  background-color: #52dc97;
+  width: 15px;
+  height: 15px;
+  left: 90px;
+  top: 45px;
+  animation: pulse 1s infinite;
+}
+
+.printerbutton:hover {
+  animation: none;
+}
+
+.printing {
+  background-color: #fd6e49;
+}
+
+#printbutton:checked ~ .paper {
+  animation: print 4.4s linear forwards;
+}
+
+#printbutton:checked ~ .paper:before {
+  animation: display 4s linear forwards;
+}
+
+@keyframes print {
+  0% {
+    transform: translateY(0);
+    z-index: 3;
+  }
+  50% {
+    transform: translateY(200px);
+    z-index: 3;
+  }
+  79% {
+    transform: translateY(200px);
+    z-index: 3;
+  }
+  90% {
+    transform: translateY(200px) rotateX(-90deg);
+    z-index: 3;
+  }
+  95% {
+    transform: translateY(50px) scale(3);
+    z-index: 50;
+  }
+  100% {
+    transform: translateY(50px) scale(3.2);
+    z-index: 50;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  @keyframes print {
+    0% {
+      transform: translateY(0);
+      z-index: 3;
+    }
+    50% {
+      transform: translateY(200px);
+      z-index: 3;
+    }
+    79% {
+      transform: translateY(200px);
+      z-index: 3;
+    }
+    90% {
+      transform: translateY(200px) rotateX(-90deg);
+      z-index: 3;
+    }
+    95% {
+      transform: translateY(120px) scale(6);
+      z-index: 50;
+    }
+    100% {
+      transform: translateY(120px) scale(7);
+      z-index: 50;
+    }
+  }
+}
+
+@keyframes display {
+  0% {
+    opacity: 0;
+    transform: scaleY(-1);
+  }
+  28% {
+    opacity: 0;
+    transform: scaleY(-1);
+  }
+  40% {
+    opacity: 1;
+    transform: scaleY(-1);
+  }
+  80% {
+    opacity: 1;
+    transform: scaleY(-1);
+  }
+  95% {
+    opacity: 1;
+    transform: scaleY(0.01);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(0.01);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.9);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 3px rgba(253, 110, 73, 0.3);
+  }
+  100% {
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(253, 110, 73, 0.3);
+  }
+}

@@ -11,18 +11,26 @@
     "start": "next start"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.36.1",
+    "@trpc/client": "^10.43.3",
+    "@trpc/react-query": "^10.43.3",
+    "@trpc/server": "^10.43.3",
     "logger": "*",
     "next": "^13.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "ui": "*"
+    "ui": "*",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.4.19",
     "@types/node": "^17.0.12",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
+    "autoprefixer": "^10.4.16",
     "eslint-config-custom": "*",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5",
     "tsconfig": "*",
     "typescript": "^5.2.2"
   }
