@@ -19,6 +19,7 @@ export default function Home() {
   const [inputCertid, setInputCertid] = useState<number>();
   const [inputEmail, setInputEmail] = useState<string>();
   const [phoneDigits, setPhoneDigits] = useState<number>();
+  const [showGenCertid, setShowGenCertid] = useState<number>(0);
 
   const router = useRouter();
 
@@ -35,7 +36,13 @@ export default function Home() {
       if (data) {
         setValidInput(true);
         setShowModal(false);
-        return setCertificateData(data);
+        const certdata = {
+          certid: data.certId,
+          name: data.student.name,
+          phone: data.student.phone,
+          email: data.student.email,
+        };
+        return setCertificateData(certdata);
       } else {
         setValidInput(false);
       }
@@ -50,16 +57,33 @@ export default function Home() {
       });
       if (data) {
         setValidInput(true);
-        setShowModal(false);
-        return setCertificateData(data);
+        console.log(data);
+        setShowGenCertid(data.certid);
       } else {
         setValidInput(false);
+        setShowGenCertid(0);
       }
     }
   };
 
   const navToVal = () => {
     router.push("/certify");
+  };
+
+  const handleDownloadCert = async () => {
+    if (inputCertid) {
+      await serverClient
+        .downloadPDF({ certid: inputCertid })
+        .then((pdfblob) => {
+          if (pdfblob) {
+            const fileurl = window.URL.createObjectURL(pdfblob);
+            let alink = document.createElement("a");
+            alink.href = fileurl;
+            alink.download = `${inputCertid}.pdf`;
+            alink.click();
+          }
+        });
+    }
   };
 
   return (
@@ -100,6 +124,7 @@ export default function Home() {
           </button>
         ) : (
           <button
+            onClick={() => handleDownloadCert()}
             type="button"
             className="px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-sky-400/100 hover:bg-sky-300/100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center"
           >
@@ -114,16 +139,16 @@ export default function Home() {
               <path
                 d="M13 9L9 13M9 13L5 9M9 13V1"
                 stroke="#F2F2F2"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M1 17V18C1 18.7956 1.31607 19.5587 1.87868 20.1213C2.44129 20.6839 3.20435 21 4 21H14C14.7956 21 15.5587 20.6839 16.1213 20.1213C16.6839 19.5587 17 18.7956 17 18V17"
                 stroke="#F2F2F2"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
             Save
@@ -145,18 +170,18 @@ export default function Home() {
             >
               <g
                 fill="#000000"
-                fill-rule="nonzero"
+                fillRule="nonzero"
                 stroke="none"
-                stroke-width="1"
-                stroke-linecap="butt"
-                stroke-linejoin="miter"
-                stroke-miterlimit="10"
-                stroke-dasharray=""
-                stroke-dashoffset="0"
-                font-family="none"
-                font-weight="none"
-                font-size="none"
-                text-anchor="none"
+                strokeWidth="1"
+                strokeLinecap="butt"
+                strokeLinejoin="miter"
+                strokeMiterlimit="10"
+                strokeDasharray=""
+                strokeDashoffset="0"
+                fontFamily="none"
+                fontWeight="none"
+                fontSize="none"
+                textAnchor="none"
               >
                 <g transform="scale(8.53333,8.53333)">
                   <path d="M7,4c-0.25587,0 -0.51203,0.09747 -0.70703,0.29297l-2,2c-0.391,0.391 -0.391,1.02406 0,1.41406l7.29297,7.29297l-7.29297,7.29297c-0.391,0.391 -0.391,1.02406 0,1.41406l2,2c0.391,0.391 1.02406,0.391 1.41406,0l7.29297,-7.29297l7.29297,7.29297c0.39,0.391 1.02406,0.391 1.41406,0l2,-2c0.391,-0.391 0.391,-1.02406 0,-1.41406l-7.29297,-7.29297l7.29297,-7.29297c0.391,-0.39 0.391,-1.02406 0,-1.41406l-2,-2c-0.391,-0.391 -1.02406,-0.391 -1.41406,0l-7.29297,7.29297l-7.29297,-7.29297c-0.1955,-0.1955 -0.45116,-0.29297 -0.70703,-0.29297z"></path>
@@ -197,18 +222,18 @@ export default function Home() {
             >
               <g
                 fill="#ffffff"
-                fill-rule="nonzero"
+                fillRule="nonzero"
                 stroke="none"
-                stroke-width="1"
-                stroke-linecap="butt"
-                stroke-linejoin="miter"
-                stroke-miterlimit="10"
-                stroke-dasharray=""
-                stroke-dashoffset="0"
-                font-family="none"
-                font-weight="none"
-                font-size="none"
-                text-anchor="none"
+                strokeWidth="1"
+                strokeLinecap="butt"
+                strokeLinejoin="miter"
+                strokeMiterlimit="10"
+                strokeDasharray=""
+                strokeDashoffset="0"
+                fontFamily="none"
+                fontWeight="none"
+                fontSize="none"
+                textAnchor="none"
               >
                 <g transform="scale(5.12,5.12)">
                   <path d="M40,0c-5.46875,0 -9.93359,4.42188 -10,9.875l-14.09375,7.0625c-1.65625,-1.21875 -3.69922,-1.9375 -5.90625,-1.9375c-5.51172,0 -10,4.48828 -10,10c0,5.51172 4.48828,10 10,10c2.20703,0 4.25,-0.71875 5.90625,-1.9375l14.09375,7.0625c0.06641,5.45313 4.53125,9.875 10,9.875c5.51172,0 10,-4.48828 10,-10c0,-5.51172 -4.48828,-10 -10,-10c-2.125,0 -4.09766,0.67578 -5.71875,1.8125l-13.65625,-6.8125l13.65625,-6.8125c1.62109,1.13672 3.59375,1.8125 5.71875,1.8125c5.51172,0 10,-4.48828 10,-10c0,-5.51172 -4.48828,-10 -10,-10zM40,2c4.42969,0 8,3.57031 8,8c0,4.42969 -3.57031,8 -8,8c-1.63672,0 -3.14062,-0.50781 -4.40625,-1.34375c-0.125,-0.41797 -0.50391,-0.70703 -0.9375,-0.71875c-0.00391,-0.00391 -0.02734,0.00391 -0.03125,0c-1.39453,-1.26172 -2.33203,-3.02734 -2.5625,-5c0.21094,-0.35156 0.1875,-0.79687 -0.0625,-1.125c0.10156,-4.33984 3.63281,-7.8125 8,-7.8125zM30.21875,12c0.37109,1.80859 1.23047,3.4375 2.4375,4.75l-12.84375,6.4375c-0.33984,-1.82812 -1.15625,-3.47656 -2.34375,-4.8125zM10,17c1.85156,0 3.55469,0.60938 4.90625,1.65625c0.01172,0.00781 0.01953,0.02344 0.03125,0.03125c0.00781,0.01953 0.01953,0.04297 0.03125,0.0625c0.08594,0.10547 0.19141,0.1875 0.3125,0.25c0.00391,0.00391 0.02734,-0.00391 0.03125,0c1.49609,1.32813 2.48438,3.22266 2.65625,5.34375c-0.11328,0.27344 -0.10156,0.58203 0.03125,0.84375c-0.01953,0.08203 -0.03125,0.16406 -0.03125,0.25c-0.12109,2.21875 -1.12891,4.19141 -2.6875,5.5625c-0.09375,0.05859 -0.17969,0.13281 -0.25,0.21875c-1.375,1.11328 -3.11719,1.78125 -5.03125,1.78125c-4.42969,0 -8,-3.57031 -8,-8c0,-4.42969 3.57031,-8 8,-8zM19.8125,26.8125l12.84375,6.4375c-1.20703,1.3125 -2.06641,2.94141 -2.4375,4.75l-12.75,-6.375c1.1875,-1.33594 2.00391,-2.98437 2.34375,-4.8125zM40,32c4.42969,0 8,3.57031 8,8c0,4.42969 -3.57031,8 -8,8c-4.42969,0 -8,-3.57031 -8,-8c0,-2.40625 1.04688,-4.56641 2.71875,-6.03125c0.02344,-0.01953 0.04297,-0.03906 0.0625,-0.0625c0.00391,-0.00391 0.02734,0.00391 0.03125,0c0.16016,-0.06641 0.30078,-0.17578 0.40625,-0.3125c1.33594,-0.99609 2.98047,-1.59375 4.78125,-1.59375z"></path>
@@ -229,6 +254,7 @@ export default function Home() {
           setPhoneDigits={setPhoneDigits}
           handleGenerateCert={handleGenerateCert}
           validInput={validInput}
+          genCertid={showGenCertid}
         />
       )}
     </main>

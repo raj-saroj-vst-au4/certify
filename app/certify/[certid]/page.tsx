@@ -24,7 +24,13 @@ const Certify = () => {
       const data = await serverClient.getCert({ certid: Number(certid) });
       if (data) {
         setValid(true);
-        setValData(data);
+        const certdata = {
+          certid: data.certId,
+          name: data.student.name,
+          phone: data.student.phone,
+          email: data.student.email,
+        };
+        setValData(certdata);
       } else {
         setValid(false);
       }
@@ -99,7 +105,7 @@ const Certify = () => {
             <img
               src={kirat.src}
               alt="kirat"
-              className="w-16 h-16 mb-2 -mt-16 bg-center bg-cover rounded-full dark:bg-gray-500 dark:bg-gray-700"
+              className="w-16 h-16 mb-2 -mt-16 bg-center bg-cover rounded-full dark:bg-gray-700"
             />
             <p className="text-xl font-semibold leadi">100x Devs</p>
             <p className="text-sm uppercase">Harkirat Singh</p>

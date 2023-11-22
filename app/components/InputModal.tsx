@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import InputAlert from "./InputAlert";
+import OutputAlert from "./OutputAlert";
 
 interface ModalProps {
   setShowModal: (state: boolean) => void;
@@ -9,6 +10,7 @@ interface ModalProps {
   setPhoneDigits: (state: number) => void;
   handleGenerateCert: () => void;
   validInput: boolean;
+  genCertid: number;
 }
 
 const InputModal = ({
@@ -19,6 +21,7 @@ const InputModal = ({
   setPhoneDigits,
   handleGenerateCert,
   validInput,
+  genCertid,
 }: ModalProps) => {
   const [isGenerated, setIsGenerated] = useState<boolean>(true);
 
@@ -95,6 +98,12 @@ const InputModal = ({
               )}
 
               {!validInput && <InputAlert />}
+              {validInput && genCertid > 99999 && (
+                <OutputAlert
+                  message={`Generated Certificate id - ${genCertid}`}
+                  color="green"
+                />
+              )}
 
               {isGenerated ? (
                 <button
