@@ -57,7 +57,7 @@ export default function Home() {
       });
       if (data) {
         setValidInput(true);
-        console.log(data);
+
         setShowGenCertid(data.certid);
       } else {
         setValidInput(false);
