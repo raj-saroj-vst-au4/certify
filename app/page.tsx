@@ -20,9 +20,7 @@ export default function Home() {
   const [inputEmail, setInputEmail] = useState<string>();
   const [phoneDigits, setPhoneDigits] = useState<number>();
   const [showGenCertid, setShowGenCertid] = useState<number>(0);
-
-  const router = useRouter();
-
+  const [loading, setLoading] = useState<boolean>(false);
   const [certificateData, setCertificateData] = useState<Certificate>({
     certid: 432121,
     name: "Invalid",
@@ -30,9 +28,13 @@ export default function Home() {
     email: "invalid",
   });
 
+  const router = useRouter();
+
   const handleGetCert = async () => {
     if (inputCertid) {
+      setLoading(true);
       const data = await serverClient.getCert({ certid: inputCertid });
+      setLoading(false);
       if (data) {
         setValidInput(true);
         setShowModal(false);
@@ -51,13 +53,14 @@ export default function Home() {
 
   const handleGenerateCert = async () => {
     if (inputEmail && phoneDigits) {
+      setLoading(true);
       const data = await serverClient.generateCert({
         email: inputEmail,
         digits: phoneDigits,
       });
+      setLoading(false);
       if (data) {
         setValidInput(true);
-
         setShowGenCertid(data.certid);
       } else {
         setValidInput(false);
@@ -255,6 +258,7 @@ export default function Home() {
           handleGenerateCert={handleGenerateCert}
           validInput={validInput}
           genCertid={showGenCertid}
+          loading={loading}
         />
       )}
     </main>
