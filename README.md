@@ -41,7 +41,7 @@ Access the application via `http://localhost:3000` in your web browser.
 
 ## Demo/Test Usage 
 
-Head over to [https://certify-lac.vercel.app/] and try with the following sample data
+Head over to [https://certify-lac.vercel.app/] and try generating certificates with the following sample data
 
 1. raj.saroj@example.com    t    9967586822
 2. bob.johnson@example.com    f    7654321098
