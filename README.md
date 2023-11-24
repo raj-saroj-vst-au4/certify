@@ -39,6 +39,22 @@ npm run dev
 
 Access the application via `http://localhost:3000` in your web browser.
 
+## Demo/Test Usage 
+
+Head over to [https://certify-lac.vercel.app/] and try with the following sample data
+
+raj.saroj@example.com    t    9967586822
+bob.johnson@example.com    f    7654321098
+alex.wilson@example.com    f    3210987654
+samuel.turner@example.com    f    1098765432
+grace.miller@example.com    f    2109876543
+sara.white@example.com    f    4321098765
+david.brown@example.com    f    5432109876
+john.doe@example.com    f    9876543210
+alice.smith@example.com    f    8765432109
+emily.davis@example.com    f    6543210987
+
+
 ## Contributing
 
 Contributions are welcome! If you'd like to contribute to Certify, please follow these steps:
