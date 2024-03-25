@@ -61,13 +61,12 @@ const InputModal = ({
                     Your Certificate ID
                   </label>
                   <input
-                    onChange={(event) => {
-        if (!/[0-9]/.test(event.key)) {
-          event.preventDefault();
-        }else {
-          setCertid(parseInt(event.target.value))
-        }
-      }}
+                    nChange={(event) => {
+    const inputValue = event.target.value.replace(/\D/g, ''); // Remove non-digit characters
+    if (inputValue.length <= 6) { // Limit input to 6 digits
+      setCertid(parseInt(inputValue)); // Convert input value to integer and update state
+    }
+  }}
                     
                     placeholder="6-Digit code"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
