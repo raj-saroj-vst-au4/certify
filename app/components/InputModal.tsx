@@ -61,7 +61,7 @@ const InputModal = ({
                     Your Certificate ID
                   </label>
                   <input
-                    nChange={(event) => {
+                    onChange={(event) => {
     const inputValue = event.target.value.replace(/\D/g, ''); // Remove non-digit characters
     if (inputValue.length <= 6) { // Limit input to 6 digits
       setCertid(parseInt(inputValue)); // Convert input value to integer and update state
