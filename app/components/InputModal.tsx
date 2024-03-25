@@ -61,7 +61,7 @@ const InputModal = ({
                     Your Certificate ID
                   </label>
                   <input
-                    onKeyPress={(event) => {
+                    onChange={(event) => {
         if (!/[0-9]/.test(event.key)) {
           event.preventDefault();
         }else {
